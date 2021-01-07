@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  {{{ssrCSS}}}
+</head>
+<body>
+  <div id="app">{{{ssrHTML}}}</div>
+  <script>
+    window.__INITIAL_STATE__ = {{{initialState}}}
+  </script>
+  <script src="http://localhost:9000/static/js/main.min.js"></script>
+</body>
+</html>
