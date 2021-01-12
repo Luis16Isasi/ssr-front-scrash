@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components';
 
 const Container = styled.div`
-  border: 1px solid red;
+  border: 1px solid green;
   width: 500px;
   height: 200px;
   display: flex;
@@ -13,6 +13,7 @@ const Container = styled.div`
 `;
 
 const App = ({ title }) => {
+
   return (
     <Container>
       <h1>Hello world</h1>
@@ -25,7 +26,7 @@ const App = ({ title }) => {
 export const getStaticProps = () => {
   return {
     props: {
-      title: 'Hola!'
+      title: 'Hola! Luis Isasi Oyolo'
     }
   }
 }

@@ -2,7 +2,12 @@ import * as path from 'path';
 import * as express from 'express';
 import * as handlebars from 'express-handlebars';
 
+import * as React from 'react';
+import * as ReactDOMServer from 'react-dom/server';
+import { ServerStyleSheet } from 'styled-components';
+
 // import App, { getStaticProps } from '../client/App';
+import App, { getStaticProps } from '../client/App';
 
 
 const PORT = process.env.PORT || 8000
@@ -20,11 +25,28 @@ app.use(express.static('public'))
 
 
 app.get('/', (request, response) => {
+
+  let dataComponent = { props: {} };
+  if (getStaticProps) {
+    dataComponent = getStaticProps();
+  }
+
+  //creamos una instancia de ServerStyleSheet el cual nos los ofrece "styled-components"
+  const sheet = new ServerStyleSheet();
+
+  //creamos un HTML desde el server con ReactDOMServer con su metodo "renderToString" 
+  const HTML = ReactDOMServer.renderToString(
+    sheet.collectStyles(<App {...dataComponent.props}  />)
+  )
+
+  //de esta manera obtenemos todo los styles que vienen de client 
+  const styletags = sheet.getStyleTags();
+
   response.render('index', {
     layout: false,
-    ssrHTML: "<h1>hello</h1>",
-    ssrCSS: "",
-    initialState: ""
+    ssrHTML: HTML,
+    ssrCSS: styletags,
+    initialState: JSON.stringify(dataComponent),
   });
 })
 

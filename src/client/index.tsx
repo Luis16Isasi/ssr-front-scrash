@@ -19,8 +19,22 @@ import App from './App';
 //   return
 // }
 // reactRenderer();
+const initialState = window.__INITIAL_STATE__;
 
-const mainNode = document.querySelector("#app");
+const reactRender = () => {
+    const mainNode = document.querySelector('#app');
+    const hasHTML = mainNode?.textContent;
+    
+    if (hasHTML) {
+        ReactDOM.hydrate(<App {...initialState.props} title="angel"  />, mainNode);
+        return
+    }
+    ReactDOM.render(<App  {...initialState.props} title="angel" />, mainNode);
+    return;
+}
 
-ReactDOM.render(<App />, mainNode)
+// const mainNode = document.querySelector("#app");
+
+// ReactDOM.render(<App />, mainNode)
+
 
